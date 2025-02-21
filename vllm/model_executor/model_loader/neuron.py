@@ -100,6 +100,7 @@ class NeuronCasualLM(nn.Module):
 
         self.model = neuronx_model_cls.from_pretrained(split_model_dir,
                                                        **kwargs)
+        print("[DEBUG] Overridden kwargs =", kwargs)
         self.model.to_neuron()
 
 
