@@ -75,17 +75,17 @@ class NeuronCasualLM(nn.Module):
         return next_tokens
 
     def load_weights(self, model_name_or_path: str, **kwargs):
-        print("[DEBUG] load_weights called with kwargs =", kwargs)
         arch = _get_model_architecture(self.config)
         neuronx_module_path, neuronx_model_cls_name, hf_model_cls_name = (
             _NEURON_SUPPORTED_MODELS[arch])
+        print(f"[DEBUG] load_weights called with kwargs ={kwargs};model_name_or_path={model_name_or_path};neuronx_module_path={neuronx_module_path};neuronx_model_cls_name={neuronx_model_cls_name};hf_model_cls_name={hf_model_cls_name}")
         neuronx_module = importlib.import_module(neuronx_module_path)
         neuronx_model_cls = getattr(neuronx_module, neuronx_model_cls_name)
-        kwargs.setdefault("export", False)
-        kwargs.setdefault("freeze", True)
-        kwargs.setdefault("auto_cast_type", "bf16")
-        kwargs.setdefault("batch_size", 1)
-        kwargs.setdefault("sequence_length", 2048)
+        #kwargs.setdefault("export", False)
+        #kwargs.setdefault("freeze", True)
+        #kwargs.setdefault("auto_cast_type", "bf16")
+        #kwargs.setdefault("batch_size", 1)
+        #kwargs.setdefault("sequence_length", 2048)
 
         split_model_dir = f"{model_name_or_path}-split"
         if os.path.isdir(os.path.join(model_name_or_path,
