@@ -80,6 +80,11 @@ class NeuronCasualLM(nn.Module):
             _NEURON_SUPPORTED_MODELS[arch])
         neuronx_module = importlib.import_module(neuronx_module_path)
         neuronx_model_cls = getattr(neuronx_module, neuronx_model_cls_name)
+        kwargs.setdefault("export", False)
+        kwargs.setdefault("freeze", True)
+        kwargs.setdefault("auto_cast_type", "bf16")
+        kwargs.setdefault("batch_size", 1)
+        kwargs.setdefault("sequence_length", 2048)
 
         split_model_dir = f"{model_name_or_path}-split"
         if os.path.isdir(os.path.join(model_name_or_path,
