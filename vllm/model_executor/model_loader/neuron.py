@@ -78,7 +78,8 @@ class NeuronCasualLM(nn.Module):
         arch = _get_model_architecture(self.config)
         neuronx_module_path, neuronx_model_cls_name, hf_model_cls_name = (
             _NEURON_SUPPORTED_MODELS[arch])
-        print(f"[DEBUG] load_weights called with kwargs ={kwargs};model_name_or_path={model_name_or_path};neuronx_module_path={neuronx_module_path};neuronx_model_cls_name={neuronx_model_cls_name};hf_model_cls_name={hf_model_cls_name}")
+        neuron_config = kwargs.get("neuron_config", None)
+        print(f"[DEBUG] load_weights called with kwargs ={kwargs};model_name_or_path={model_name_or_path};neuronx_module_path={neuronx_module_path};neuronx_model_cls_name={neuronx_model_cls_name};hf_model_cls_name={hf_model_cls_name};neuron_config.__dict__={neuron_config.__dict__}")
         neuronx_module = importlib.import_module(neuronx_module_path)
         neuronx_model_cls = getattr(neuronx_module, neuronx_model_cls_name)
         #kwargs.setdefault("export", False)
