@@ -75,6 +75,7 @@ class NeuronCasualLM(nn.Module):
         return next_tokens
 
     def load_weights(self, model_name_or_path: str, **kwargs):
+        print("[DEBUG] load_weights called with kwargs =", kwargs)
         arch = _get_model_architecture(self.config)
         neuronx_module_path, neuronx_model_cls_name, hf_model_cls_name = (
             _NEURON_SUPPORTED_MODELS[arch])
