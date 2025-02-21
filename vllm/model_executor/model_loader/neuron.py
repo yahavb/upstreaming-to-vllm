@@ -91,9 +91,11 @@ class NeuronCasualLM(nn.Module):
         split_model_dir = f"{model_name_or_path}-split"
         if os.path.isdir(os.path.join(model_name_or_path,
                                       "pytorch_model.bin")):
+            print(f"[DEBUG] found pytorch_model.bin under {model_name_or_path}")
             split_model_dir = model_name_or_path
         elif not os.path.exists(f"{model_name_or_path}-split"):
             hf_model_cls = getattr(transformers, hf_model_cls_name)
+            print(f"[DEBUG] could not find pytorch_model.bin under {model_name_or_path}; starting split hf_model_cls={hf_model_cls};hf_model_cls_name={hf_model_cls_name}")
             from transformers_neuronx.module import save_pretrained_split
 
             hf_model = hf_model_cls.from_pretrained(model_name_or_path,
