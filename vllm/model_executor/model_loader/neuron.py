@@ -88,6 +88,7 @@ class NeuronCasualLM(nn.Module):
         #kwargs.setdefault("batch_size", 1)
         #kwargs.setdefault("sequence_length", 2048)
 
+        '''
         split_model_dir = f"{model_name_or_path}-split"
         if os.path.isdir(os.path.join(model_name_or_path,
                                       "pytorch_model.bin")):
@@ -101,7 +102,8 @@ class NeuronCasualLM(nn.Module):
             hf_model = hf_model_cls.from_pretrained(model_name_or_path,
                                                     low_cpu_mem_usage=True)
             save_pretrained_split(hf_model, f"{model_name_or_path}-split")
-
+        '''
+        split_model_dir = model_name_or_path
         self.model = neuronx_model_cls.from_pretrained(split_model_dir,
                                                        **kwargs)
         print("[DEBUG] Overridden kwargs =", kwargs)
